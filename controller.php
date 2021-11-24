@@ -26,6 +26,7 @@ include "db-functions.php";
                 <a href="realisateur.php">realisateur</a>
                 <a href="acteur.php">acteur</a>
                 <a href="genre.php">genre</a>
+                <a href="role.php">role</a>
             </nav>
         </header>
 <?php

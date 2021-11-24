@@ -6,7 +6,7 @@
 
     $action = filter_input(INPUT_GET, "action", FILTER_VALIDATE_REGEXP, [
         "options" => [
-            "regexp" => "/addFilm|addReal|addActeur|linkGenre|updateQtt|deleteProd|deleteAll/"
+            "regexp" => "/addFilm|addReal|addActeur|linkGenre|linkCasting|addRole|updateQtt|deleteProd|deleteAll/"
         ]
     ]);
 
@@ -117,6 +117,62 @@
                     }
 
                     redirect("genre.php");
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("faker.php");
+                break;
+
+            case "addRole":
+                if(isset($_POST['submit'])){
+
+                    $loop = filter_input(INPUT_POST, "qtt", FILTER_DEFAULT);
+
+                    for($i = 1; $i <= $loop; $i++){
+                        $faker = Faker\Factory::create();
+
+                        $nom_role = $faker->name;
+                        
+                        insertRole($nom_role);
+                    }
+
+                    redirect("role.php");
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("faker.php");
+                break;
+
+            case "linkCasting":
+                if(isset($_POST['submit'])){
+
+                    $loop = filter_input(INPUT_POST, "qtt", FILTER_DEFAULT);
+
+                    for($i = 1; $i <= $loop; $i++){
+
+                        $colonne = "id_film";
+                        $table = "film";
+                        $nombre = 1;
+                        $id_film = randomData($colonne, $table, $nombre);
+
+                        $colonne = "id_role";
+                        $table = "role";
+                        $nombre = 1;
+                        $id_role = randomData($colonne, $table, $nombre);
+
+                        $colonne = "id_acteur";
+                        $table = "acteur";
+                        $nombre = 1;
+                        $id_acteur = randomData($colonne, $table, $nombre);
+                        
+                        linkCasting($id_film, $id_role, $id_acteur);
+                    }
+
+                    redirect("index.php");
             
                 }
                 else{

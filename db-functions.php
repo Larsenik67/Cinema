@@ -138,4 +138,40 @@ function film2Genre($table, $id){
 
     return $stmt->fetchAll();
 }
+
+function insertRole($nom_role){
+    $db = connexion();
+    $query = "INSERT INTO role (nom_role)
+              VALUES (:nom_role)";
+    $stmt = $db->prepare($query);
+    $stmt->execute([":nom_role" => $nom_role]);
+}
+
+function linkCasting($id_film, $id_role, $id_acteur){
+    $db = connexion();
+    $query = "INSERT INTO casting (id_film, id_role, id_acteur)
+              VALUES (:id_film, :id_role, :id_acteur)";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":id_film" => $id_film,
+        ":id_role" => $id_role,
+        ":id_acteur" => $id_acteur,
+    ]);
+
+    return $db->lastInsertId();
+
+}
+
+function role2Casting($table, $id){
+
+    $db = connexion();
+    $query = "SELECT * FROM casting c
+            INNER JOIN film f ON c.id_film = f.id_film  
+            INNER JOIN role r ON c.id_role = r.id_role
+            INNER JOIN acteur a ON c.id_acteur = a.id_acteur 
+            WHERE c.id_$table = $id";
+    $stmt = $db->query($query);
+
+    return $stmt->fetchAll();
+}
 ?>
