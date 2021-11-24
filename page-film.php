@@ -7,10 +7,13 @@ if(isset($_GET['id'])){
     $table = "film";
     $id_tofind = $_GET['id'];
     $id = $id_tofind;
+    
     $film = findOneById($table, $id_tofind);
     $casting = role2Casting($table, $id);
+
     echo $film['titre']."<br>".$film["sortie"]."<br>".$film['durée']."minutes<br>".$film['note']."/5<br><br>".$film['résumé']."<br><img src='".$film['affiche']."' alt='".$film['titre']."'>
     <br><h1>Casting</h1><br>";
+
     foreach($casting as $cast){
 
         echo "<a href='page-acteur.php?id=".$cast["id_acteur"]."'>".$cast["nom_acteur"] ." ".$cast['prenom_acteur']."</a> 

@@ -174,4 +174,15 @@ function role2Casting($table, $id){
 
     return $stmt->fetchAll();
 }
+
+function real2Film($table, $id){
+
+    $db = connexion();
+    $query = "SELECT * FROM film f
+            INNER JOIN realisateur r ON f.id_realisateur = r.id_realisateur
+            WHERE f.id_$table = $id";
+    $stmt = $db->query($query);
+
+    return $stmt->fetchAll();
+}
 ?>

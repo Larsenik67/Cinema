@@ -22,10 +22,10 @@
                     for($i = 1; $i <= $loop; $i++){
                         $faker = Faker\Factory::create();
 
-                        $titre = $faker->word;
+                        $titre = $faker->company;
                         $sortie = $faker->date($format = 'Y-m-d', $max = 'now');
                         $durée = Rand(30, 180);
-                        $résumé = $faker->sentence($nbWords = 10, $variableNbWords = true);
+                        $résumé = $faker->realText(500);
                         $note = Rand(0, 5);
                         $affiche = $faker->imageUrl($width = 640, $height = 480);
 
