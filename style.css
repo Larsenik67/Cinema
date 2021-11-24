@@ -41,6 +41,15 @@ table{
     padding-bottom: 12px;
   }
 
+.index {
+  width: 60%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1em;
+  row-gap: 1em;
+}
+
 .grille {
     width: 60%;
     margin: auto;

@@ -24,20 +24,22 @@ function connexion() {
 /**
  * Permet de sortir toute les données du tableau "film"
  */
-function findAll(){
+function findAll($table){
+
+    $table = filter_var($table, FILTER_SANITIZE_STRING);
 
     $db = connexion();
-    $query = "SELECT * FROM film";
+    $query = "SELECT * FROM $table";
     $stmt = $db->query($query);
     
     return $stmt->fetchAll();
 
 }
 
-function findOneById($table, $id_film){
+function findOneById($table, $id_name, $id_tofind){
 
     $db = connexion();
-    $query = "SELECT * FROM ".$table." WHERE id_film = ".$id_film;
+    $query = "SELECT * FROM $table WHERE $id_name = $id_tofind";
     $stmt = $db->query($query);
 
     return $stmt->fetch();
