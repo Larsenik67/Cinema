@@ -36,18 +36,18 @@ function findAll($table){
 
 }
 
-function findOneById($table, $id_name, $id_tofind){
+function findOneById($table, $id_tofind){
 
     $db = connexion();
-    $query = "SELECT * FROM $table WHERE $id_name = $id_tofind";
+    $query = "SELECT * FROM $table WHERE id_$table = $id_tofind";
     $stmt = $db->query($query);
 
     return $stmt->fetch();
 }
 
-function randomReal(){
+function randomData($colonne, $table, $nombre){
     $db = connexion();
-    $query = "SELECT id_realisateur FROM realisateur ORDER BY rand() LIMIT 1";
+    $query = "SELECT $colonne FROM $table ORDER BY rand() LIMIT $nombre";
     $stmt = $db->query($query);
     $stmt->execute();
 
@@ -97,4 +97,45 @@ function insertReal($nom_real, $prenom_real, $sexe_real, $naissance_real){
 
 }
 
+function insertActeur($nom_acteur, $prenom_acteur, $sexe_acteur, $naissance_acteur){
+    $db = connexion();
+    $query = "INSERT INTO acteur (nom_acteur, prenom_acteur, sexe_acteur, naissance_acteur)
+              VALUES (:nom_acteur, :prenom_acteur, :sexe_acteur, :naissance_acteur)";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":nom_acteur" => $nom_acteur,
+        ":prenom_acteur" => $prenom_acteur,
+        ":sexe_acteur" => $sexe_acteur,
+        ":naissance_acteur" => $naissance_acteur,
+    ]);
+
+    return $db->lastInsertId();
+
+}
+
+function linkGenre($id_genre, $id_film){
+    $db = connexion();
+    $query = "INSERT INTO classer_genre (id_genre, id_film)
+              VALUES (:id_genre, :id_film)";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":id_genre" => $id_genre,
+        ":id_film" => $id_film
+    ]);
+
+    return $db->lastInsertId();
+
+}
+
+function film2Genre($table, $id){
+
+    $db = connexion();
+    $query = "SELECT * FROM classer_genre cg 
+            INNER JOIN film f ON cg.id_film = f.id_film  
+            INNER JOIN genre g ON cg.id_genre = g.id_genre 
+            WHERE cg.id_$table = $id";
+    $stmt = $db->query($query);
+
+    return $stmt->fetchAll();
+}
 ?>

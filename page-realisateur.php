@@ -5,9 +5,8 @@ include "controller.php";
 if(isset($_GET['id'])){
 
     $table = "realisateur";
-    $id_name = "id_realisateur";
     $id_tofind = $_GET['id'];
-    $realisateur = findOneById($table, $id_name, $id_tofind);
+    $realisateur = findOneById($table, $id_tofind);
     
     if($realisateur['sexe_real'] == 1){
         $sexe = "Homme";

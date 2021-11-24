@@ -41,5 +41,31 @@ require_once 'vendor/autoload.php';
                 <input type="submit" name="submit" value="Ajouter le produit">
             </p>
         </form>
+        <br><br>
+        <h1>Ajouter des acteurs random via Faker</h1>
+        <form action="traitement.php?action=addActeur" method="post">
+            <p>
+                <label>
+                    Quantité :
+                    <input type="number" step="any" name="qtt">
+                </label>
+            </p>
+            <p>
+                <input type="submit" name="submit" value="Ajouter le produit">
+            </p>
+        </form>
+        <br><br>
+        <h1>Ajouter des genres random a des films via Faker</h1>
+        <form action="traitement.php?action=linkGenre" method="post">
+            <p>
+                <label>
+                    Quantité :
+                    <input type="number" step="any" name="qtt">
+                </label>
+            </p>
+            <p>
+                <input type="submit" name="submit" value="Ajouter le produit">
+            </p>
+        </form>
     </body>
 </html>

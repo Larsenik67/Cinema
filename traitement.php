@@ -6,7 +6,7 @@
 
     $action = filter_input(INPUT_GET, "action", FILTER_VALIDATE_REGEXP, [
         "options" => [
-            "regexp" => "/addFilm|addReal|updateQtt|deleteProd|deleteAll/"
+            "regexp" => "/addFilm|addReal|addActeur|linkGenre|updateQtt|deleteProd|deleteAll/"
         ]
     ]);
 
@@ -28,12 +28,16 @@
                         $résumé = $faker->sentence($nbWords = 10, $variableNbWords = true);
                         $note = Rand(0, 5);
                         $affiche = $faker->imageUrl($width = 640, $height = 480);
-                        $id_realisateur = randomReal();
+
+                        $colonne = "id_realisateur";
+                        $table = "realisateur";
+                        $nombre = 1;
+                        $id_realisateur = randomData($colonne, $table, $nombre);
                         
                         insertFilm($titre, $sortie, $durée, $résumé, $note, $affiche, $id_realisateur);
                     }
 
-                    redirect("index.php");
+                    redirect("film.php");
             
                 }
                 else{
@@ -58,7 +62,61 @@
                         insertReal($nom_real, $prenom_real, $sexe_real, $naissance_real);
                     }
 
-                    redirect("index.php");
+                    redirect("realisateur.php");
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("faker.php");
+                break;
+
+            case "addActeur":
+                if(isset($_POST['submit'])){
+
+                    $loop = filter_input(INPUT_POST, "qtt", FILTER_DEFAULT);
+
+                    for($i = 1; $i <= $loop; $i++){
+                        $faker = Faker\Factory::create();
+
+                        $nom_acteur = $faker->lastName;
+                        $prenom_acteur = $faker->firstName;
+                        $sexe_acteur = Rand(0, 1);
+                        $naissance_acteur = $faker->date($format = 'Y-m-d', $max = '01-01-2000');
+                        
+                        insertActeur($nom_acteur, $prenom_acteur, $sexe_acteur, $naissance_acteur);
+                    }
+
+                    redirect("acteur.php");
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("faker.php");
+                break;
+
+            case "linkGenre":
+                if(isset($_POST['submit'])){
+
+                    $loop = filter_input(INPUT_POST, "qtt", FILTER_DEFAULT);
+
+                    for($i = 1; $i <= $loop; $i++){
+
+                        $colonne = "id_genre";
+                        $table = "genre";
+                        $nombre = 1;
+                        $id_genre = randomData($colonne, $table, $nombre);
+
+                        $colonne = "id_film";
+                        $table = "film";
+                        $nombre = 1;
+                        $id_film = randomData($colonne, $table, $nombre);
+                        
+                        linkGenre($id_genre, $id_film);
+                    }
+
+                    redirect("genre.php");
             
                 }
                 else{
