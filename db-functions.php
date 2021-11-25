@@ -198,4 +198,34 @@ function acteur2Film($table, $id){
 
     return $stmt->fetchAll();
 }
+
+function wishlistFilm($id){
+    $db = Connexion();
+    $query = "SELECT * FROM aime_film a
+        INNER JOIN film f ON a.id_film = f.id_film
+        WHERE a.id_user = $id";
+$stmt = $db->query($query);
+
+return $stmt->fetchAll();
+}
+
+function wishlistReal($id){
+    $db = Connexion();
+    $query = "SELECT * FROM aime_real a
+        INNER JOIN realisateur r ON a.id_realisateur = r.id_realisateur
+        WHERE a.id_user = $id";
+$stmt = $db->query($query);
+
+return $stmt->fetchAll();
+}
+
+function wishlistActeur($id){
+    $db = Connexion();
+    $query = "SELECT * FROM aime_acteur a
+        INNER JOIN acteur ac ON a.id_acteur = ac.id_acteur 
+        WHERE a.id_user = $id";
+$stmt = $db->query($query);
+
+return $stmt->fetchAll();
+}
 ?>

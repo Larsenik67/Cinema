@@ -31,6 +31,7 @@ include "db-functions.php";
                 if(isset($_SESSION['user'])){
                     ?>
                     <span><?= $_SESSION['user']['username'] ?></span>
+                    <a href="wishlist.php">wishlist</a>
                     <a href='security.php?action=logout'>Déconnexion</a>
                     <?php
                 }
