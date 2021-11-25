@@ -228,4 +228,67 @@ $stmt = $db->query($query);
 
 return $stmt->fetchAll();
 }
+
+function insertFavFilm($user, $film){
+    $db = connexion();
+    $query = "INSERT INTO aime_film (id_user, id_film)
+              VALUES (:id_user, :id_film)";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":id_user" => $user,
+        ":id_film" => $film
+]);
+}
+
+function insertFavReal($user, $real){
+    $db = connexion();
+    $query = "INSERT INTO aime_real (id_user, id_realisateur)
+              VALUES (:id_user, :id_realisateur)";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":id_user" => $user,
+        ":id_realisateur" => $real
+]);
+}
+
+function insertFavActeur($user, $acteur){
+    $db = connexion();
+    $query = "INSERT INTO aime_acteur (id_user, id_acteur)
+              VALUES (:id_user, :id_acteur)";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":id_user" => $user,
+        ":id_acteur" => $acteur
+]);
+}
+
+function deleteFavFilm($film, $user){
+    $db = connexion();
+    $query = "DELETE FROM aime_film WHERE id_film = :film AND id_user = :user";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":film" => $film,
+        ":user" => $user
+    ]);
+}
+
+function deleteFavReal($real, $user){
+    $db = connexion();
+    $query = "DELETE FROM aime_real WHERE id_realisateur = :real AND id_user = :user";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":real" => $real,
+        ":user" => $user
+    ]);
+}
+
+function deleteFavActeur($acteur, $user){
+    $db = connexion();
+    $query = "DELETE FROM aime_acteur WHERE id_acteur = :acteur AND id_user = :user";
+    $stmt = $db->prepare($query);
+    $stmt->execute([
+        ":acteur" => $acteur,
+        ":user" => $user
+    ]);
+}
 ?>

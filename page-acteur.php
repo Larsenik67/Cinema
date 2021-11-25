@@ -17,8 +17,13 @@ if(isset($_GET['id'])){
         $sexe = "Femme";
     }
 
-    echo $acteur["nom_acteur"] ." ".$acteur['prenom_acteur']."</a><br>".
-    $sexe."<br>Née le ".$acteur['naissance_acteur']."</div><br><br>
+    echo $acteur["nom_acteur"] ." ".$acteur['prenom_acteur']."</a><br>
+    <form action='traitement.php?id=".$id."&action=addActeurToFav' method='post'>
+            <p>
+                <input type='submit' name='submit' value='Ajouter l'acteur a vos favoris'>
+            </p>
+        </form><br>
+    ".$sexe."<br>Née le ".$acteur['naissance_acteur']."</div><br><br>
     <h1>Filmographie</h2><br>";
 
     foreach($casting as $cast){

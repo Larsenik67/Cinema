@@ -6,7 +6,7 @@
 
     $action = filter_input(INPUT_GET, "action", FILTER_VALIDATE_REGEXP, [
         "options" => [
-            "regexp" => "/addFilm|addReal|addActeur|linkGenre|linkCasting|addRole|updateQtt|deleteProd|deleteAll/"
+            "regexp" => "/addFilm|addReal|addActeur|linkGenre|linkCasting|addRole|addFilmToFav|addRealToFav|addActeurToFav|deleteFilmFav|deleteRealFav|deleteActeurFav|updateQtt|deleteProd|deleteAll/"
         ]
     ]);
 
@@ -180,6 +180,118 @@
                 }
                 redirect("faker.php");
                 break;
+
+            case "addFilmToFav":
+                if(isset($_POST['submit'])){
+
+                    if(isset($_SESSION['user'])){
+
+                        $user = $_SESSION['user']['id_user'];
+                        $film = $_GET['id'];
+
+                        insertFavFilm($user, $film);
+                    }
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("wishlist.php");
+                break;
+            
+            case "addRealToFav":
+                if(isset($_POST['submit'])){
+
+                    if(isset($_SESSION['user'])){
+
+                        $user = $_SESSION['user']['id_user'];
+                        $real = $_GET['id'];
+
+                        insertFavReal($user, $real);
+                    }
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("wishlist.php");
+                break;
+
+            case "addActeurToFav":
+                if(isset($_POST['submit'])){
+
+                    if(isset($_SESSION['user'])){
+
+                        $user = $_SESSION['user']['id_user'];
+                        $acteur = $_GET['id'];
+
+                        insertFavActeur($user, $acteur);
+                    }
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("wishlist.php");
+                break;
+
+            case "deleteFilmFav":
+                if(isset($_POST['submit'])){
+
+                    if(isset($_SESSION['user'])){
+
+                        
+                        $film = $_GET['id'];
+                        $user = $_SESSION['user']['id_user'];
+
+                        deleteFavFilm($film, $user);
+                    }
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("wishlist.php");
+                break;
+
+            case "deleteRealFav":
+                if(isset($_POST['submit'])){
+
+                    if(isset($_SESSION['user'])){
+
+                        
+                        $real = $_GET['id'];
+                        $user = $_SESSION['user']['id_user'];
+
+                        deleteFavReal($real, $user);
+                    }
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("wishlist.php");
+                break;
+
+            case "deleteActeurFav":
+                if(isset($_POST['submit'])){
+
+                    if(isset($_SESSION['user'])){
+
+                        
+                        $acteur = $_GET['id'];
+                        $user = $_SESSION['user']['id_user'];
+
+                        deleteFavActeur($acteur, $user);
+                    }
+            
+                }
+                else{
+                    setMessage("error", "Sale pirate de ta maman, tu valides le formulaire STP !");
+                }
+                redirect("wishlist.php");
+                break;
+
                         
             case "updateQtt":
                 $id = filter_input(INPUT_GET, "id", FILTER_VALIDATE_INT);

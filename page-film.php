@@ -12,7 +12,13 @@ if(isset($_GET['id'])){
     $casting = role2Casting($table, $id);
     $genre = film2Genre($table, $id);
 
-    echo "<h1>".$film['titre']."</h1><br>genre(s) : ";
+    echo "<h1>".$film['titre']."</h1><br>
+        <form action='traitement.php?id=".$id."&action=addFilmToFav' method='post'>
+            <p>
+                <input type='submit' name='submit' value='Ajouter le film a vos favoris'>
+            </p>
+        </form><br>
+        genre(s) : ";
 
     foreach($genre as $type){
 
