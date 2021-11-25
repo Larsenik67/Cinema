@@ -10,8 +10,17 @@ if(isset($_GET['id'])){
     
     $film = findOneById($table, $id_tofind);
     $casting = role2Casting($table, $id);
+    $genre = film2Genre($table, $id);
 
-    echo $film['titre']."<br>".$film["sortie"]."<br>".$film['durée']."minutes<br>".$film['note']."/5<br><br>".$film['résumé']."<br><img src='".$film['affiche']."' alt='".$film['titre']."'>
+    echo "<h1>".$film['titre']."</h1><br>genre(s) : ";
+
+    foreach($genre as $type){
+
+        echo $type['nom_genre']." ";
+
+    }
+
+    echo "<br>".$film["sortie"]."<br>".$film['durée']."minutes<br>".$film['note']."/5<br><br>".$film['résumé']."<br><img src='".$film['affiche']."' alt='".$film['titre']."'>
     <br><h1>Casting</h1><br>";
 
     foreach($casting as $cast){

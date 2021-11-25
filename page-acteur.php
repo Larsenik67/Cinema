@@ -9,7 +9,7 @@ if(isset($_GET['id'])){
     $id = $id_tofind;
     $acteur = findOneById($table, $id_tofind);
     
-    $casting = real2Film($table, $id);
+    $casting = acteur2Film($table, $id);
     
     if($acteur['sexe_acteur'] == 1){
         $sexe = "Homme";
